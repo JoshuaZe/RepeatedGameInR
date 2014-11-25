@@ -1,0 +1,297 @@
+source(file="InformationAbility.R")
+#A cooperation
+#B betray
+s.cooperateAll<-function(p.NO,c.NO){
+  decision<-"A"
+}
+
+s.betrayAll<-function(p.NO,c.NO){
+  decision<-'B'
+}
+
+s.onceBetrayAlwaysBetray<-function(p.NO,c.NO){
+  p.info=i.onlySelfInfoWithCompetitor(p.NO,c.NO)
+  if(any(p.info=='B')){
+    decision<-"B"
+  }else{
+    decision<-"A"
+  }
+}
+
+s.twiceBetrayAlwaysBetray<-function(p.NO,c.NO){
+  p.info=i.onlySelfInfoWithCompetitor(p.NO,c.NO)
+  if(length(p.info[(p.info=='B')]) >= 2){
+    decision<-"B"
+  }else{
+    decision<-"A"
+  }
+}
+
+s.threeTimesBetrayAlwaysBetray<-function(p.NO,c.NO){
+  p.info=i.onlySelfInfoWithCompetitor(p.NO,c.NO)
+  if(length(p.info[(p.info=='B')]) >= 3){
+    decision<-"B"
+  }else{
+    decision<-"A"
+  }
+}
+
+s.cooperateThenDoCompetitorDo<-function(p.NO,c.NO){
+  p.info=i.onlySelfInfoWithCompetitor(p.NO,c.NO)
+  if(ncol(p.info)==1){
+    decision<-"A"
+  }else{
+    decision<-p.info[ncol(p.info)]
+  }
+}
+
+s.typeStatThenDoCompetitorDo<-function(p.NO,c.NO){
+  e.info<-i.onlySelfInfoAboutTypeOfCompetitor(p.NO)
+  p.info=i.onlySelfInfoWithCompetitor(p.NO,c.NO)
+  if(ncol(p.info)==1){
+    if(ncol(e.info)==1){
+      if(runif(1,0,1)>=0.5){
+        decision<-"A"
+      }else{
+        decision<-"B"
+      }
+    }else if((length(e.info[e.info=='A'])/(length(e.info[!is.na(e.info)])))>=0.5){
+      decision<-"A"
+    }else{
+      decision<-"B"
+    }
+  }else{
+    decision<-p.info[ncol(p.info)]
+  }
+}
+
+s.typeStatThenStatCompetitorDo<-function(p.NO,c.NO){
+  e.info<-i.onlySelfInfoAboutTypeOfCompetitor(p.NO)
+  p.info=i.onlySelfInfoWithCompetitor(p.NO,c.NO)
+  if(ncol(p.info)==1){
+    if(ncol(e.info)==1){
+      if(runif(1,0,1)>=0.5){
+        decision<-"A"
+      }else{
+        decision<-"B"
+      }
+    }else if((length(e.info[e.info=='A'])/(length(e.info[!is.na(e.info)])))>=0.5){
+      decision<-"A"
+    }else{
+      decision<-"B"
+    }
+  }else{
+    if((length(p.info[p.info=='A'])/(length(p.info))>=0.5)){
+      decision<-"A"
+    }else{
+      decision<-"B"
+    }
+  }
+}
+
+s.typeStatThenStatCompetitorDoRand<-function(p.NO,c.NO){
+  e.info<-i.onlySelfInfoAboutTypeOfCompetitor(p.NO)
+  p.info=i.onlySelfInfoWithCompetitor(p.NO,c.NO)
+  if(ncol(p.info)==1){
+    if(ncol(e.info)==1){
+      if(runif(1,0,1)>=0.5){
+        decision<-"A"
+      }else{
+        decision<-"B"
+      }
+    }else if((length(e.info[e.info=='A'])/(length(e.info[!is.na(e.info)])))>=0.5){
+        if(runif(1,0,1)>=0.5){
+          decision<-"A"
+        }else{
+          decision<-"B"
+        }
+    }else{
+      decision<-"B"
+    }
+  }else{
+    if((length(p.info[p.info=='A'])/(length(p.info))>=0.5)){
+        if(runif(1,0,1)>=0.2){
+          decision<-"A"
+        }else{
+          decision<-"B"
+        }
+    }else{
+      decision<-"B"
+    }
+  }
+}
+
+s.typeStatThenStatCompetitorDoRandBadFirst<-function(p.NO,c.NO){
+  e.info<-i.onlySelfInfoAboutTypeOfCompetitor(p.NO)
+  p.info=i.onlySelfInfoWithCompetitor(p.NO,c.NO)
+  if(ncol(p.info)==1){
+    if(ncol(e.info)==1){
+      if(runif(1,0,1)>=0.5){
+        decision<-"A"
+      }else{
+        decision<-"B"
+      }
+    }else if((length(e.info[e.info=='A'])/(length(e.info[!is.na(e.info)])))>=0.5){
+      if(runif(1,0,1)>=0.8){
+        decision<-"A"
+      }else{
+        decision<-"B"
+      }
+    }else{
+      decision<-"B"
+    }
+  }else{
+    if((length(p.info[p.info=='A'])/(length(p.info))>=0.5)){
+      decision<-"A"
+    }else{
+      decision<-"B"
+    }
+  }
+}
+
+s.typeStatThenStatCompetitorDoRandBad<-function(p.NO,c.NO){
+  e.info<-i.onlySelfInfoAboutTypeOfCompetitor(p.NO)
+  p.info=i.onlySelfInfoWithCompetitor(p.NO,c.NO)
+  if(ncol(p.info)==1){
+    if(ncol(e.info)==1){
+      if(runif(1,0,1)>=0.5){
+        decision<-"A"
+      }else{
+        decision<-"B"
+      }
+    }else if((length(e.info[e.info=='A'])/(length(e.info[!is.na(e.info)])))>=0.5){
+      if(runif(1,0,1)>=0.5){
+        decision<-"A"
+      }else{
+        decision<-"B"
+      }
+    }else{
+      decision<-"B"
+    }
+  }else{
+    if((length(p.info[p.info=='A'])/(length(p.info))>=0.5)){
+      if(runif(1,0,1)>=0.8){
+        decision<-"A"
+      }else{
+        decision<-"B"
+      }
+    }else{
+      decision<-"B"
+    }
+  }
+}
+
+s.typeStatThenStatCompetitorDoHighInfo<-function(p.NO,c.NO){
+  e.info<-i.onlySelfInfoAboutTypeOfCompetitor(p.NO)
+  p.info=i.allInfoAboutCompetitor(c.NO)
+  if(ncol(p.info)==1){
+    if(ncol(e.info)==1){
+      if(runif(1,0,1)>=0.5){
+        decision<-"A"
+      }else{
+        decision<-"B"
+      }
+    }else if((length(e.info[e.info=='A'])/(length(e.info[!is.na(e.info)])))>=0.5){
+      decision<-"A"
+    }else{
+      decision<-"B"
+    }
+  }else{
+    if((length(p.info[p.info=='A'])/(length(p.info))>=0.5)){
+      decision<-"A"
+    }else{
+      decision<-"B"
+    }
+  }
+}
+
+s.typeStatThenStatCompetitorDoRandHighInfo<-function(p.NO,c.NO){
+  e.info<-i.onlySelfInfoAboutTypeOfCompetitor(p.NO)
+  p.info=i.allInfoAboutCompetitor(c.NO)
+  if(ncol(p.info)==1){
+    if(ncol(e.info)==1){
+      if(runif(1,0,1)>=0.5){
+        decision<-"A"
+      }else{
+        decision<-"B"
+      }
+    }else if((length(e.info[e.info=='A'])/(length(e.info[!is.na(e.info)])))>=0.5){
+      if(runif(1,0,1)>=0.5){
+        decision<-"A"
+      }else{
+        decision<-"B"
+      }
+    }else{
+      decision<-"B"
+    }
+  }else{
+    if((length(p.info[p.info=='A'])/(length(p.info))>=0.5)){
+      if(runif(1,0,1)>=0.2){
+        decision<-"A"
+      }else{
+        decision<-"B"
+      }
+    }else{
+      decision<-"B"
+    }
+  }
+}
+
+s.typeStatThenStatCompetitorDoRandHighInfoBad<-function(p.NO,c.NO){
+  e.info<-i.onlySelfInfoAboutTypeOfCompetitor(p.NO)
+  p.info=i.allInfoAboutCompetitor(c.NO)
+  if(ncol(p.info)==1){
+    if(ncol(e.info)==1){
+      if(runif(1,0,1)>=0.5){
+        decision<-"A"
+      }else{
+        decision<-"B"
+      }
+    }else if((length(e.info[e.info=='A'])/(length(e.info[!is.na(e.info)])))>=0.5){
+      if(runif(1,0,1)>=0.5){
+        decision<-"A"
+      }else{
+        decision<-"B"
+      }
+    }else{
+      decision<-"B"
+    }
+  }else{
+    if((length(p.info[p.info=='A'])/(length(p.info))>=0.5)){
+      if(runif(1,0,1)>=0.8){
+        decision<-"A"
+      }else{
+        decision<-"B"
+      }
+    }else{
+      decision<-"B"
+    }
+  }
+}
+
+DecisionStrategy.size <- 14
+DecisionStrategy.name=c(
+  "cooperateAll","betrayAll","onceBetrayAlwaysBetray","twiceBetrayAlwaysBetray",
+  "threeTimesBetrayAlwaysBetray","cooperateThenDoCompetitorDo","typeStatThenDoCompetitorDo",
+  "typeStatThenStatCompetitorDo","typeStatThenStatCompetitorDoRand",
+  "typeStatThenStatCompetitorDoHighInfo","typeStatThenStatCompetitorDoRandHighInfo",
+  "typeStatThenStatCompetitorDoRandBad","typeStatThenStatCompetitorDoRandHighInfoBad",
+  "typeStatThenStatCompetitorDoRandBadFirst")
+
+decision<-function(strategy.name,p.NO,c.NO){
+  switch(strategy.name,
+         cooperateAll=s.cooperateAll(p.NO,c.NO),
+         betrayAll=s.betrayAll(p.NO,c.NO),
+         onceBetrayAlwaysBetray=s.onceBetrayAlwaysBetray(p.NO,c.NO),
+         twiceBetrayAlwaysBetray=s.twiceBetrayAlwaysBetray(p.NO,c.NO),
+         threeTimesBetrayAlwaysBetray=s.threeTimesBetrayAlwaysBetray(p.NO,c.NO),
+         cooperateThenDoCompetitorDo=s.cooperateThenDoCompetitorDo(p.NO,c.NO),
+         typeStatThenDoCompetitorDo=s.typeStatThenDoCompetitorDo(p.NO,c.NO),
+         typeStatThenStatCompetitorDo=s.typeStatThenStatCompetitorDo(p.NO,c.NO),
+         typeStatThenStatCompetitorDoRand=s.typeStatThenStatCompetitorDoRand(p.NO,c.NO),
+         typeStatThenStatCompetitorDoHighInfo=s.typeStatThenStatCompetitorDoHighInfo(p.NO,c.NO),
+         typeStatThenStatCompetitorDoRandHighInfo=s.typeStatThenStatCompetitorDoRandHighInfo(p.NO,c.NO),
+         typeStatThenStatCompetitorDoRandBad=s.typeStatThenStatCompetitorDoRandBad(p.NO,c.NO),
+         typeStatThenStatCompetitorDoRandHighInfoBad=s.typeStatThenStatCompetitorDoRandHighInfoBad(p.NO,c.NO),
+         typeStatThenStatCompetitorDoRandBadFirst=s.typeStatThenStatCompetitorDoRandBadFirst(p.NO,c.NO)
+)}
